@@ -1,0 +1,32 @@
+<nz-page-header (nzBack)="goBack()" nzBackIcon nzTitle="CreateMeeting"> </nz-page-header>
+<form nz-form [formGroup]="meetingForm" (ngSubmit)="_submitForm(meetingForm.value)" nzLayout="horizontal">
+  <nz-form-item>
+    <nz-form-label nzFor="fullName" nzSpan="6" nzRequired>Full Name</nz-form-label>
+    <nz-form-control nzSpan="6">
+      <input nz-input type="text" id="fullName" placeholder="Enter Full Name"  formControlName="fullName">
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="meetingDate" nzSpan="6" nzRequired>Meeting Date</nz-form-label>
+    <nz-form-control nzSpan="14">
+        <nz-date-picker [(ngModel)]="meeting_date" [nzDisabledDate]="disabledDate" (ngModelChange)="onChange($event)"  placeholder="Enter Meeting Date"  formControlName="meetingDate"></nz-date-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="startTime" nzSpan="6" nzRequired>Start Time</nz-form-label>
+    <nz-form-control nzSpan="14">
+        <nz-time-picker  formControlName="startTime" [ngModel]="start_time"  (ngModelChange)="log($event,'start')"  nzFormat="HH:mm:ss"  nzPlaceHolder="Start Time"></nz-time-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label nzFor="endTime" nzSpan="6" nzRequired>End Time</nz-form-label>
+    <nz-form-control nzSpan="14">
+        <nz-time-picker  formControlName="endTime" [ngModel]="start_time"  (ngModelChange)="log($event,'start')"  nzFormat="HH:mm:ss"  nzPlaceHolder="End Time"></nz-time-picker>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+      <nz-form-control nzSpan="14"  nzOffset="10">
+         <button nz-button nzType="primary" type="submit" [disabled]="!meetingForm.valid">Submit</button>
+      </nz-form-control>
+  </nz-form-item>
+</form>
