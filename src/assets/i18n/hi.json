@@ -1,0 +1,9 @@
+{
+  "MEETING": {
+    "CREATE MEETING":"बैठक बनाएँ",
+    "NAME":"नाम",
+    "DATE":"तारीख",
+    "START_TIME":"समय शुरू",
+    "END_TIME":"अंतिम समय"
+  }
+}

@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import * as CryptoJS from 'crypto-js';
 import { MeetingService } from 'src/app/shared/service/meeting.service';
 import * as dateFun from 'date-fns';
+import { NzModalService } from 'ng-zorro-antd/modal';
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -12,17 +13,17 @@ import * as dateFun from 'date-fns';
 export class CreateComponent implements OnInit {
 
   meetingForm: FormGroup;
-  start_time: Date = new Date();
-  end_time: Date = new Date();
-  meeting_date: Date = new Date();
-  disabledDate
-  constructor(private location:Location,private mService:MeetingService) { }
+  sTime: Date = new Date();
+  eTime: Date = new Date();
+  mDate: Date = new Date();
+  disabledDate;
+  constructor(private location: Location, private mService: MeetingService, private modal: NzModalService) { }
   ngOnInit(): void {
     this.createMeetingForm();
   }
   createMeetingForm() {
     this.meetingForm = new FormGroup({
-      fullName: new FormControl("", [Validators.required]),
+      fullName: new FormControl('', [Validators.required, Validators.maxLength(50)]),
       meetingDate: new FormControl(new Date(), [Validators.required]),
       startTime: new FormControl(new Date(), [Validators.required]),
       endTime: new FormControl(new Date(), [Validators.required])
@@ -33,26 +34,26 @@ export class CreateComponent implements OnInit {
     };
   }
   _submitForm(formData) {
-    console.log(formData)
+    const key = 'message';
     this.mService.addData(formData).subscribe(resp => {
       if (resp.status === 200) {
         this.goBack();
+      } else {
+        this.modal.error({
+          nzTitle: 'Validation Failed !',
+          nzContent: resp[key]
+        });
       }
-    })
-    
+    });
   }
   goBack() {
     this.location.back();
   }
-  log(time:Date,from): void {
-    if(from === 'start'){
-      this.start_time=time;
-    }else{
-      this.end_time=time;
+  log(time: Date, from): void {
+    if (from === 'start') {
+      this.sTime = time;
+    } else {
+      this.eTime = time;
     }
   }
-  onChange(result: Date): void {
-    console.log('onChange: ', result);
-  }
-
 }

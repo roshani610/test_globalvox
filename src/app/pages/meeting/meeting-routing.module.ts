@@ -5,8 +5,7 @@ import { CreateComponent } from './create/create.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'list', pathMatch: 'full' },
-  { path: 'list', component: ListComponent },
+  { path: '', component: ListComponent },
   { path: 'create', component: CreateComponent },
 ];
 

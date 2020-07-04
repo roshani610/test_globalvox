@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  encryptionKey:'123'
+  encryptionKey: 'encryptionKey'
 };
 
 /*

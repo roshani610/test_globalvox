@@ -1,49 +1,49 @@
 <div nz-row nzType="flex" nzJustify="end">
-    <div nz-col nzSpan='12'>
-      <button nz-button nzType="primary" [routerLink]="[ '/meeting/create' ]">Create Meeting</button>
-    </div>
-    <div nz-col nzSpan="6">
-      <a nz-dropdown [nzDropdownMenu]="menu">
-        Language
-        <i nz-icon nzType="down"></i>
-      </a>
-      <nz-dropdown-menu #menu="nzDropdownMenu">
-        <ul nz-menu nzSelectable>
-          <li nz-menu-item>English</li>
-          <li nz-menu-item>Hindi</li>
-        </ul>
-      </nz-dropdown-menu>
-    </div>
-    <div nz-col nzSpan="6">
-      <a nz-dropdown [nzDropdownMenu]="menu">
-        TimeZone
-        <i nz-icon nzType="down"></i>
-      </a>
-      <nz-dropdown-menu #menu="nzDropdownMenu">
-        <ul nz-menu nzSelectable>
-          <li nz-menu-item>1st menu item</li>
-          <li nz-menu-item>2nd menu item</li>
-          <li nz-menu-item>3rd menu item</li>
-        </ul>
-      </nz-dropdown-menu>
-    </div>
+  <div nz-col nzSpan='12'>
+    <button nz-button nzType="primary"
+      [routerLink]="[ '/meeting/create' ]">{{'MEETING.CREATE MEETING' | translate}}</button>
   </div>
-  <br>
+  <div nz-col nzSpan="6">
+    <nz-form-item>
+      <nz-form-label nzSpan="8" nzRequired>Language</nz-form-label>
+      <nz-form-control nzSpan="12">
+        <nz-select [(ngModel)]="selectedLang" (ngModelChange)="changeLang($event)">
+          <nz-option nzValue="hi" nzLabel="Hindi"></nz-option>
+          <nz-option nzValue="en" nzLabel="English"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+  <div nz-col nzSpan="6">
+    <nz-form-item>
+      <nz-form-label nzSpan="8" nzRequired>TimeZone</nz-form-label>
+      <nz-form-control nzSpan="12">
+        <nz-select [(ngModel)]="selectedTimezone" (ngModelChange)="log($event)">
+          <nz-option nzValue="GMT+5:30" nzLabel=" India Standard Time"></nz-option>
+          <nz-option nzValue="UTC+1" nzLabel="Alpha Time Zone"></nz-option>
+          <nz-option nzValue="UTC+9:30/ +10:30" nzLabel="Australian Central Time"></nz-option>
+          <nz-option nzValue="UTC+3" nzLabel="Arabia Standard Time"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+</div>
+<br>
 <nz-table #meetings [nzData]="listOfMeetings">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Date</th>
-        <th>Start Time</th>
-        <th>End Time</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of meetings.data">
-        <td>{{ data.fullName }}</td>
-        <td>{{ data.meetingDate | date:  'dd/MM/yyyy'}}</td>
-        <td>{{ data.startTime | date: 'hh:mm:ss' }}</td>
-        <td>{{ data.endTime | date: 'hh:mm:ss' }}</td>
-      </tr>
-    </tbody>
-  </nz-table>
+  <thead>
+    <tr>
+      <th>{{'MEETING.NAME' | translate}}</th>
+      <th>{{'MEETING.DATE' | translate}}</th>
+      <th>{{'MEETING.START_TIME' | translate}}</th>
+      <th>{{'MEETING.END_TIME' | translate}}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of meetings.data">
+      <td>{{ data.fullName }}</td>
+      <td>{{ data.meetingDate | date: 'dd/MM/yyyy' : selectedTimezone : 'en' }}</td>
+      <td>{{ data.startTime | date: 'hh:mm:ss' : selectedTimezone}}</td>
+      <td>{{ data.endTime | date: 'hh:mm:ss' :selectedTimezone }}</td>
+    </tr>
+  </tbody>
+</nz-table>

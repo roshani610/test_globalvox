@@ -1,0 +1,9 @@
+{
+  "MEETING": {
+    "CREATE MEETING":"Create Meeting",
+    "NAME":"Name",
+    "DATE":"Date",
+    "START_TIME":"Start Time",
+    "END_TIME":"End Time"
+  }
+}
